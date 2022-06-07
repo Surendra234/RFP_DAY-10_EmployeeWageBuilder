@@ -3,18 +3,18 @@ package com.bridgelabz;
 public class EmployeeWageBuilder {
 
     // Constant
-    public static final int isPartTime = 0;
-    public static final int isFullTime = 1;
+    public static final int isPartTime = 1;
+    public static final int isFullTime = 2;
     public static final int empRatePerHour = 20;
     public static final int numOfWorkingDay = 20;
     public static final int maxWorkingHour = 100;
 
     public static void main(String[] args) {
-        calEmpWage();
+        computeEmpWage();
     }
 
     // Method to Calculate Monthly employee wage
-    public static void calEmpWage() {
+    public static int computeEmpWage() {
 
         // Variables
         int empHour = 0;
@@ -46,6 +46,7 @@ public class EmployeeWageBuilder {
             System.out.println("Days : " +totalWorkingDays +" Emp Hour :" +empHour);
         }
         totalEmpWage = totalEmpHour * empRatePerHour;
-        System.out.println("\nTotal Monthly Employee wage = " +totalEmpWage);
+        System.out.println("\nTotal Employee wage = " +totalEmpWage);
+        return totalEmpWage;
     }
 }
