@@ -2,48 +2,84 @@ package com.bridgelabz;
 
 public class EmployeeWageBuilder {
 
-    // Constant
     public static final int isPartTime = 1;
-    public static final int isFullTime = 2;
+    public static final int isfullTime = 2;
 
-    public static void main(String[] args) {
-        
-        computeEmpWage("Maruti Suzuki",30,20,90);
-        computeEmpWage("Mahindra Tech",40,25,120);
-        computeEmpWage("Toyota",50,18,90);
+    private final String companyName;
+    private final int empRatePerHour;
+    private final int numOfWorkingDays;
+    private final int maxHourPerMonth;
+    private int totalEmpWage;
+
+    public EmployeeWageBuilder(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHourPerMonth) {
+        this.companyName = companyName;
+        this.empRatePerHour = empRatePerHour;
+        this.numOfWorkingDays = numOfWorkingDays;
+        this.maxHourPerMonth = maxHourPerMonth;
     }
 
-    public static int computeEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHourPerMonth) {
+    public void computeEmpWage() {
 
-        // Variables
+        // Variable
         int empHour = 0, totalEmpHour = 0, totalWorkingDays = 0;
 
         // Computation
-        while(totalEmpHour <= maxHourPerMonth && totalWorkingDays < numOfWorkingDays) {
+        while(totalEmpHour <= maxHourPerMonth && totalWorkingDays <= numOfWorkingDays) {
+
             totalWorkingDays++;
             int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 
-            switch (empCheck) {
+            switch(empCheck) {
 
-                case isFullTime:
-                    empHour = 8;
+                case isPartTime :
+                    empHour = 4;
                     break;
 
-                case isPartTime:
-                    empHour = 4;
+                case isfullTime :
+                    empHour = 8;
                     break;
 
                 default:
                     empHour = 0;
             }
-            // Calculation
             totalEmpHour += empHour;
-            System.out.println("Days : " + totalWorkingDays + " Emp Hour :" + empHour);
+            System.out.println("Day- " +totalWorkingDays +"Emp Hour : " +empHour);
         }
-        int totalEmpWage = totalEmpHour * empRatePerHour;
-        System.out.println("\nTotal Employee Wage for company : " +company+ " is :"+totalEmpWage);
-        System.out.println();
-        System.out.println("=====================================================================");
-        return totalEmpWage;
+        totalEmpWage = totalEmpHour * empRatePerHour;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeWageBuilder{" +
+                "companyName='" + companyName + '\'' +
+                ", empRatePerHour=" + empRatePerHour +
+                ", numOfWorkingDays=" + numOfWorkingDays +
+                ", maxHourPerMonth=" + maxHourPerMonth +
+                ", totalEmpWage=" + totalEmpWage +
+                '}';
+    }
+
+    public static void main(String[] args) {
+
+        EmployeeWageBuilder marutiSuzuki = new EmployeeWageBuilder("Maruti Suzuki",
+                20,20,100);
+
+        EmployeeWageBuilder mahindraTech = new EmployeeWageBuilder("Mahindra Tech",
+                30,15,130);
+
+        EmployeeWageBuilder toyota = new EmployeeWageBuilder("Toyota",
+                40,10,70);
+
+        marutiSuzuki.computeEmpWage();
+        System.out.println(marutiSuzuki);
+        System.out.println("========================================================================================");
+
+        mahindraTech.computeEmpWage();
+        System.out.println(mahindraTech);
+        System.out.println("========================================================================================");
+
+        toyota.computeEmpWage();
+        System.out.println(toyota);
+        System.out.println("========================================================================================");
     }
 }
