@@ -4,15 +4,36 @@ public class EmployeeWageBuilder {
 
     public static final int isPartTime = 1;
     public static final int isfullTime = 2;
+    private int numOfCompany = 0;
+    private CompanyEmpWage[] companyEmpWageArray;
 
+    public EmployeeWageBuilder() {
+        companyEmpWageArray = new CompanyEmpWage[5];
+    }
 
-    public static int computeEmpWage(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHourPerMonth) {
+    private void addCompany(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHourPerMonth) {
+
+        companyEmpWageArray[numOfCompany] = new CompanyEmpWage(companyName, empRatePerHour,
+                numOfWorkingDays, maxHourPerMonth);
+        numOfCompany++;
+    }
+
+    private void computeEmpWage() {
+
+        for(int i = 0; i < numOfCompany; i++) {
+            companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+            System.out.println(companyEmpWageArray[i]);
+            System.out.println("==========================================================================\n");
+        }
+    }
+
+    private int computeEmpWage(CompanyEmpWage companyEmpWage) {
 
         // Variable
         int empHour = 0, totalEmpHour = 0, totalWorkingDays = 0;
 
         // Computation
-        while(totalEmpHour <= maxHourPerMonth && totalWorkingDays <= numOfWorkingDays) {
+        while(totalEmpHour <= companyEmpWage.maxHourPerMonth && totalWorkingDays <= companyEmpWage.numOfWorkingDays) {
 
             totalWorkingDays++;
             int empCheck = (int) Math.floor(Math.random() * 10) % 3;
@@ -33,22 +54,21 @@ public class EmployeeWageBuilder {
             totalEmpHour += empHour;
             System.out.println("Day- " +totalWorkingDays +"Emp Hour : " +empHour);
         }
-        int totalEmpWage = totalEmpHour * empRatePerHour;
         System.out.println("\n==========================================================================");
-        System.out.println("Total Employee Wage for Company : " +companyName +" is : " +totalEmpWage);
-        return totalEmpWage;
+        return totalEmpHour * companyEmpWage.empRatePerHour;
     }
 
     public static void main(String[] args) {
 
-        computeEmpWage("Maruti Suzuki", 20,20,100);
-        System.out.println("==========================================================================");
+        EmployeeWageBuilder employeeWageBuilder = new EmployeeWageBuilder();
 
-        computeEmpWage("Mahindra Tech", 30,15,130);
-        System.out.println("==========================================================================");
+        employeeWageBuilder.addCompany("Maruti Suzuki", 20,20,100);
 
-        computeEmpWage("Toyota", 40,10,70);
-        System.out.println("==========================================================================");
+        employeeWageBuilder.addCompany("Mahindra Tech", 30,15,130);
+
+        employeeWageBuilder.addCompany("Toyota", 40,10,70);
+
+        employeeWageBuilder.computeEmpWage();
 
     }
 }
