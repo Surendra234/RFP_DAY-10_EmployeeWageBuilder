@@ -5,20 +5,8 @@ public class EmployeeWageBuilder {
     public static final int isPartTime = 1;
     public static final int isfullTime = 2;
 
-    private final String companyName;
-    private final int empRatePerHour;
-    private final int numOfWorkingDays;
-    private final int maxHourPerMonth;
-    private int totalEmpWage;
 
-    public EmployeeWageBuilder(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHourPerMonth) {
-        this.companyName = companyName;
-        this.empRatePerHour = empRatePerHour;
-        this.numOfWorkingDays = numOfWorkingDays;
-        this.maxHourPerMonth = maxHourPerMonth;
-    }
-
-    public void computeEmpWage() {
+    public static int computeEmpWage(String companyName, int empRatePerHour, int numOfWorkingDays, int maxHourPerMonth) {
 
         // Variable
         int empHour = 0, totalEmpHour = 0, totalWorkingDays = 0;
@@ -45,41 +33,22 @@ public class EmployeeWageBuilder {
             totalEmpHour += empHour;
             System.out.println("Day- " +totalWorkingDays +"Emp Hour : " +empHour);
         }
-        totalEmpWage = totalEmpHour * empRatePerHour;
-    }
-
-    @Override
-    public String toString() {
-        return "EmployeeWageBuilder{" +
-                "companyName='" + companyName + '\'' +
-                ", empRatePerHour=" + empRatePerHour +
-                ", numOfWorkingDays=" + numOfWorkingDays +
-                ", maxHourPerMonth=" + maxHourPerMonth +
-                ", totalEmpWage=" + totalEmpWage +
-                '}';
+        int totalEmpWage = totalEmpHour * empRatePerHour;
+        System.out.println("\n==========================================================================");
+        System.out.println("Total Employee Wage for Company : " +companyName +" is : " +totalEmpWage);
+        return totalEmpWage;
     }
 
     public static void main(String[] args) {
 
-        EmployeeWageBuilder marutiSuzuki = new EmployeeWageBuilder("Maruti Suzuki",
-                20,20,100);
+        computeEmpWage("Maruti Suzuki", 20,20,100);
+        System.out.println("==========================================================================");
 
-        EmployeeWageBuilder mahindraTech = new EmployeeWageBuilder("Mahindra Tech",
-                30,15,130);
+        computeEmpWage("Mahindra Tech", 30,15,130);
+        System.out.println("==========================================================================");
 
-        EmployeeWageBuilder toyota = new EmployeeWageBuilder("Toyota",
-                40,10,70);
+        computeEmpWage("Toyota", 40,10,70);
+        System.out.println("==========================================================================");
 
-        marutiSuzuki.computeEmpWage();
-        System.out.println(marutiSuzuki);
-        System.out.println("========================================================================================");
-
-        mahindraTech.computeEmpWage();
-        System.out.println(mahindraTech);
-        System.out.println("========================================================================================");
-
-        toyota.computeEmpWage();
-        System.out.println(toyota);
-        System.out.println("========================================================================================");
     }
 }
